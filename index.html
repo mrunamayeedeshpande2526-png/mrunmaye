@@ -1,64 +1,31 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Arithmetic Operations using Switch Case</title>
+    <title>User Validation Form</title>
     <script>
-        function calculate() {
-            var num1 = parseFloat(document.getElementById("num1").value);
-            var num2 = parseFloat(document.getElementById("num2").value);
-            var operator = document.getElementById("operator").value;
-            var result;
+        function validateForm() {
 
-            switch(operator) {
-                case "+":
-                    result = num1 + num2;
-                    break;
+            var username = document.getElementById("username").value;
+            var password = document.getElementById("password").value;
+            var email = document.getElementById("email").value;
 
-                case "-":
-                    result = num1 - num2;
-                    break;
+            var usernamePattern = /^[A-Za-z0-9]{3,}$/;
+            var passwordPattern = /^(?=.*[0-9])(?=.*[!@#$%^&*])[A-Za-z0-9!@#$%^&*]{6,}$/;
+            var gmailPattern = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
 
-                case "*":
-                    result = num1 * num2;
-                    break;
-
-                case "/":
-                    if(num2 == 0) {
-                        result = "Cannot divide by zero";
-                    } else {
-                        result = num1 / num2;
-                    }
-                    break;
-
-                default:
-                    result = "Invalid Operator";
+            if (!usernamePattern.test(username)) {
+                alert("Invalid Username! Minimum 3 characters (letters or numbers only).");
+                return false;
             }
 
-            document.getElementById("result").innerHTML = "Result: " + result;
-        }
-    </script>
-</head>
+            if (!passwordPattern.test(password)) {
+                alert("Invalid Password! Minimum 6 characters, at least one number and one special character.");
+                return false;
+            }
 
-<body>
-    <h2>Arithmetic Operations using Switch Case</h2>
+            if (!gmailPattern.test(email)) {
+                alert("Invalid Gmail! Must be a valid @gmail.com address.");
+                return false;
+            }
 
-    <label>Enter First Number:</label>
-    <input type="number" id="num1"><br><br>
-
-    <label>Enter Second Number:</label>
-    <input type="number" id="num2"><br><br>
-
-    <label>Select Operator:</label>
-    <select id="operator">
-        <option value="+">Addition (+)</option>
-        <option value="-">Subtraction (-)</option>
-        <option value="*">Multiplication (*)</option>
-        <option value="/">Division (/)</option>
-    </select><br><br>
-
-    <button onclick="calculate()">Calculate</button>
-
-    <h3 id="result"></h3>
-</body>
-</html>
-
+            alert("Form Submitted
