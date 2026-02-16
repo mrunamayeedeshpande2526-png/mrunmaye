@@ -7,25 +7,56 @@
 
             var username = document.getElementById("username").value;
             var password = document.getElementById("password").value;
-            var email = document.getElementById("email").value;
+            var mobile = document.getElementById("mobile").value;
 
-            var usernamePattern = /^[A-Za-z0-9]{3,}$/;
-            var passwordPattern = /^(?=.*[0-9])(?=.*[!@#$%^&*])[A-Za-z0-9!@#$%^&*]{6,}$/;
-            var gmailPattern = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
+            // Username: Only letters, minimum 3 characters
+            var usernamePattern = /^[A-Za-z]{3,}$/;
+
+            // Password: Minimum 6 characters, at least 1 letter and 1 digit
+            var passwordPattern = /^(?=.*[A-Za-z])(?=.*[0-9]).{6,}$/;
+
+            // Mobile: Exactly 10 digits
+            var mobilePattern = /^[0-9]{10}$/;
 
             if (!usernamePattern.test(username)) {
-                alert("Invalid Username! Minimum 3 characters (letters or numbers only).");
+                alert("Invalid Username!\nUsername must contain only letters and minimum 3 characters.");
                 return false;
             }
 
             if (!passwordPattern.test(password)) {
-                alert("Invalid Password! Minimum 6 characters, at least one number and one special character.");
+                alert("Invalid Password!\nPassword must be at least 6 characters long and contain at least 1 letter and 1 digit.");
                 return false;
             }
 
-            if (!gmailPattern.test(email)) {
-                alert("Invalid Gmail! Must be a valid @gmail.com address.");
+            if (!mobilePattern.test(mobile)) {
+                alert("Invalid Mobile Number!\nMobile number must contain exactly 10 digits.");
                 return false;
             }
 
-            alert("Form Submitted
+            alert("Form Submitted Successfully!");
+            return true;
+        }
+    </script>
+</head>
+
+<body>
+
+    <h2>User Registration Form</h2>
+
+    <form onsubmit="return validateForm()">
+
+        <label>Username:</label>
+        <input type="text" id="username"><br><br>
+
+        <label>Password:</label>
+        <input type="password" id="password"><br><br>
+
+        <label>Mobile Number:</label>
+        <input type="text" id="mobile"><br><br>
+
+        <input type="submit" value="Submit">
+
+    </form>
+
+</body>
+</html>
