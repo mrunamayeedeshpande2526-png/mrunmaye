@@ -1,62 +1,44 @@
+<?php
+session_start();
+
+/* LOGIN */
+if(isset($_POST['login'])){
+    $username = $_POST['username'];
+
+    // create session
+    $_SESSION['username'] = $username;
+}
+
+/* LOGOUT */
+if(isset($_POST['logout'])){
+    session_destroy();
+    header("Location: ".$_SERVER['PHP_SELF']);
+    exit();
+}
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
-    <title>User Validation Form</title>
-    <script>
-        function validateForm() {
-
-            var username = document.getElementById("username").value;
-            var password = document.getElementById("password").value;
-            var mobile = document.getElementById("mobile").value;
-
-            // Username: Only letters, minimum 3 characters
-            var usernamePattern = /^[A-Za-z]{3,}$/;
-
-            // Password: Minimum 6 characters, at least 1 letter and 1 digit
-            var passwordPattern = /^(?=.*[A-Za-z])(?=.*[0-9]).{6,}$/;
-
-            // Mobile: Exactly 10 digits
-            var mobilePattern = /^[0-9]{10}$/;
-
-            if (!usernamePattern.test(username)) {
-                alert("Invalid Username!\nUsername must contain only letters and minimum 3 characters.");
-                return false;
-            }
-
-            if (!passwordPattern.test(password)) {
-                alert("Invalid Password!\nPassword must be at least 6 characters long and contain at least 1 letter and 1 digit.");
-                return false;
-            }
-
-            if (!mobilePattern.test(mobile)) {
-                alert("Invalid Mobile Number!\nMobile number must contain exactly 10 digits.");
-                return false;
-            }
-
-            alert("Form Submitted Successfully!");
-            return true;
-        }
-    </script>
+<title>PHP Session Login</title>
 </head>
-
 <body>
 
-    <h2>User Registration Form</h2>
+<h2>PHP Session Login Demo</h2>
 
-    <form onsubmit="return validateForm()">
-
-        <label>Username:</label>
-        <input type="text" id="username"><br><br>
-
-        <label>Password:</label>
-        <input type="password" id="password"><br><br>
-
-        <label>Mobile Number:</label>
-        <input type="text" id="mobile"><br><br>
-
-        <input type="submit" value="Submit">
-
-    </form>
+<?php
+if(isset($_SESSION['username'])){
+    echo "<h3>Welcome, ".$_SESSION['username']."</h3>";
+    echo '<form method="post">
+            <button name="logout">Logout</button>
+          </form>';
+}else{
+    echo '<form method="post">
+            <input type="text" name="username" placeholder="Enter Username" required><br><br>
+            <button type="submit" name="login">Login</button>
+          </form>';
+}
+?>
 
 </body>
 </html>
